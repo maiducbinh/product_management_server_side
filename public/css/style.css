@@ -1,0 +1,101 @@
+/* Header */
+header {
+    border-bottom: 1px solid
+    padding: 10px 0;
+}
+.header .inner-logo img {
+    max-height: 50px;
+    max-width: 100%;
+}
+.header .inner-menu > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+.header .inner-menu > ul > li {
+    margin-left: 20px;
+}
+/* End Header */
+
+/* Footer */
+.footer {
+    background:#333;
+    color: #fff;
+    text-align: center;
+    padding: 10px; 
+}
+/* End Footer */
+
+/* Container for the product list */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Heading styles */
+.box-head h2.inner-title {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Product item styles */
+.product-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    text-align: center;
+    padding: 10px;
+}
+
+.product-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+/* Product image styles */
+.inner-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 15px;
+}
+
+/* Product title styles */
+.inner-content h3.inner-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* New price styles */
+.inner-price-new {
+    font-size: 20px;
+    font-weight: 700;
+    color: #d9534f;
+}
+
+/* Old price styles */
+.inner-price-old {
+    font-size: 16px;
+    font-weight: 400;
+    color: #999;
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+/* Discount label styles */
+.inner-discount {
+    font-size: 14px;
+    font-weight: 500;
+    color: #5cb85c;
+    margin-top: 5px;
+}
