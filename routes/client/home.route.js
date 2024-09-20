@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router()
-const controller = require("../../controller/client/home.controller")
+const controller = require("../../controllers/client/home.controller")
 
 router.get("/", controller.index);
 
