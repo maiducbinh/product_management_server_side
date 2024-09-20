@@ -1,4 +1,5 @@
 const express = require("express");
+const systemConfig = require("./config/system")
 require("dotenv").config();
 const routeAdmin = require("./routes/admin/index.route")
 const route = require("./routes/client/index.route")
@@ -22,3 +23,6 @@ const port = process.env.PORT;
 app.listen(port, () => { 
     console.log(`App listening on port ${port})`); 
 });
+
+// App local variables
+app.locals.prefixAdmin = systemConfig.prefixAdmin
