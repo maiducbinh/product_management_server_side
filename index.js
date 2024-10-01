@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser")
 var methodOverride = require('method-override')
 const systemConfig = require("./config/system")
 require("dotenv").config();
@@ -8,6 +9,9 @@ const app = express();
 const database = require("./config/database")
 
 app.use(methodOverride('_method'))
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // pug configuration
 app.set("views", "./views"); // reading views folder
