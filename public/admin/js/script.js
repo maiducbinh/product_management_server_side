@@ -101,9 +101,16 @@ if (formChangeMulti) {
             const inputIds = formChangeMulti.querySelector("input[name='ids']");
             inputsChecked.forEach(input => {
                 const id = input.value;
-                ids.push(id);
+                if (typeChange == "change-position") {
+                    const position = input
+                        .closest("tr")
+                        .querySelector("input[name='position']").value;
+                    ids.push(`${id}-${position}`);
+                } else {
+                    ids.push(id);
+                }
             });
-            console.log(ids.join(","));
+            // console.log(ids.join(","));
             inputIds.value = ids.join(", ");
             formChangeMulti.submit();
         } else {
@@ -112,3 +119,17 @@ if (formChangeMulti) {
     });
 }
 // End Form Change Multi
+
+// Show Alert
+const showAlert = document.querySelector("[show-alert]");
+if (showAlert) {
+    const time = parseInt(showAlert.getAttribute("data-time"));
+    const closeAlert = showAlert.querySelector("[close-alert]");
+    setTimeout(() => {
+        showAlert.classList.add("alert-hidden");
+    }, time);
+    closeAlert.addEventListener("click", () => {
+        showAlert.classList.add("alert-hidden");
+    })
+};
+// End Show Alert

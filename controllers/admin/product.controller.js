@@ -25,7 +25,10 @@ module.exports.index = async (req, res) => {
         countProducts
     );
 
-    const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip);
+    const products = await Product.find(find)
+    .sort({position:"asc"})
+    .limit(objectPagination.limitItems)
+    .skip(objectPagination.skip);
 
     res.render("admin/pages/products/index", {
         pageTitle: "Danh sách sản phẩm",
@@ -45,6 +48,7 @@ module.exports.changeStatus = async (req, res) => {
     }, {
         status: status
     });
+    req.flash("success", "Cập nhật trạng thái thành công!");
     res.redirect("back");
 };
 
@@ -53,28 +57,30 @@ module.exports.changeMulti = async (req, res) => {
     const ids = req.body.ids.split(", ");
     switch (type) {
         case "active":
-            await Product.updateMany({
-                _id: {
-                    $in: ids
-                }
-            }, {
-                status: "active"
-            });
+            await Product.updateMany({_id: {$in: ids}}, {status: "active"});
+            req.flash("success", `Cập nhật trạng thái thành công cho ${ids.length} sản phẩm!`);
             break;
         case "inactive":
-            await Product.updateMany({
-                _id: {
-                    $in: ids
-                }
-            }, {
-                status: "inactive"
-            });
+            await Product.updateMany({_id: {$in: ids}}, {status: "inactive"});
+            req.flash("success", `Cập nhật trạng thái thành công cho ${ids.length} sản phẩm!`);
             break;
         case "delete-all":
-            await Product.updateMany({_id: {$in: ids}}, 
-            {
-                deleted: true, deletedAt: new Date()
-            });
+            await Product.updateMany({_id: {$in: ids}}, { deleted: true,deletedAt: new Date()});
+            req.flash("success", `Đã xóa thành công ${ids.length} sản phẩm!`);
+            break;
+        case "change-position":
+            for (const item of ids) {
+                let [id, position] = item.split("-");
+                position = parseInt(position);
+                // console.log(id);
+                // console.log(position);
+                await Product.updateOne({
+                    _id: id
+                }, {
+                    position: position
+                });
+            }
+            req.flash("success", `Cập nhật trạng thái thành công cho ${ids.length} sản phẩm!`);
             break;
         default:
             break;
@@ -87,6 +93,12 @@ module.exports.deleteItem = async (req, res) => {
     // await Product.deleteOne({
     //     _id: id
     // });
-    await Product.updateOne({_id: id}, {deleted: true, deletedAt: new Date()});
+    await Product.updateOne({
+        _id: id
+    }, {
+        deleted: true,
+        deletedAt: new Date()
+    });
+    req.flash("success", `Xóa thành công sản phẩm!`);
     res.redirect("back");
 };

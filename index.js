@@ -1,10 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
+const session = require("express-session")
 var methodOverride = require('method-override')
 const systemConfig = require("./config/system")
 require("dotenv").config();
 const routeAdmin = require("./routes/admin/index.route")
 const route = require("./routes/client/index.route")
+const flash = require('express-flash');
 const app = express();
 const database = require("./config/database")
 
@@ -21,6 +24,12 @@ app.use(express.static("public")); // access 'public' folder
 
 // database
 database.connect()
+
+// Flash
+app.use(cookieParser("JHGJKLKLGFLJK"));
+app.use(session({ cookie: { maxAge: 60000}}));
+app.use(flash());
+// End Flash
 
 // Routes
 routeAdmin(app);
