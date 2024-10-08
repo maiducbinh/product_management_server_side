@@ -5,6 +5,7 @@ block main
         action=`${prefixAdmin}/products/create`
         id="form-create-product"
         method="POST"
+        enctype="multipart/form-data"
     )
         div(class="form-group")
             label(for="title") Tiêu đề
@@ -16,13 +17,13 @@ block main
                 required
             )
         div(class="form-group")
-        label(for="desc") Mô tả
-        textarea(
-            class="form-control"
-            id="desc"
-            name="description"
-            rows="5"
-        )
+            label(for="desc") Mô tả
+            textarea(
+                class="form-control"
+                id="desc"
+                name="description"
+                rows="5"
+            )
         div(class="form-group")
             label(for="price") Giá
             input(
@@ -34,33 +35,34 @@ block main
                 min="0"
             )
         div(class="form-group")
-        label(for="discount") % Giảm giá
-        input(
-            type="number"
-            class="form-control"
-            id="discount"
-            name="discountPercentage"
-            value="0"
-            min="0"
-        )
+            label(for="discount") % Giảm giá
+            input(
+                type="number"
+                class="form-control"
+                id="discount"
+                name="discountPercentage"
+                value="0"
+                min="0"
+            )
         div(class="form-group")
-        label(for="stock") Số lượng
-        input(
-            type="number"
-            class="form-control"
-            id="stock"
-            name="stock"
-            value="0"
-            min="0"
-        )
+            label(for="stock") Số lượng
+            input(
+                type="number"
+                class="form-control"
+                id="stock"
+                name="stock"
+                value="0"
+                min="0"
+            )
         div(class="form-group")
-        label(for="thumbnail") Ảnh
-        input(
-            type="text"
-            class="form-control"
-            id="thumbnail"
-            name="thumbnail"
-        )
+            label(for="thumbnail") Ảnh
+            input(
+                type="file"
+                class="form-control-type"
+                id="thumbnail"
+                name="thumbnail"
+                accept="image/*"
+            )
         div(class="form-group")
             label(for="position") Vị trí
             input(

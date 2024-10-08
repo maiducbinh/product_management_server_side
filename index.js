@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser")
 const session = require("express-session")
 var methodOverride = require('method-override')
 const systemConfig = require("./config/system")
+const multer = require('multer');
 require("dotenv").config();
 const routeAdmin = require("./routes/admin/index.route")
 const route = require("./routes/client/index.route")
