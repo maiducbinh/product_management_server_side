@@ -150,3 +150,42 @@ module.exports.createPost = async (req, res) => {
     await product.save();
     res.redirect(`${systemConfig.prefixAdmin}/products`);
 };
+
+
+module.exports.edit = async (req, res) => {
+    try{
+        const find = {
+            deleted: false,
+            _id: req.params.id
+        }
+        const product = await Product.findOne(find);
+        console.log(product);
+        res.render("admin/pages/products/edit", {
+            pageTitle: "Chỉnh sửa sản phẩm",
+            product: product
+        });
+    }
+    catch(err){
+        req.flash("error", "Không tìm thấy sản phẩm!");
+        res.redirect(`${systemConfig.prefixAdmin}/products`);
+    }
+};
+
+module.exports.editPatch = async (req, res) => {
+    const id = req.params.id;
+    req.body.price = parseInt(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+    if(req.file){
+        req.body.thumbnail = '/uploads/' + req.file.filename;
+    }
+    try{
+        await Product.updateOne({_id: id}, req.body);
+        req.flash("success", "Cập nhật sản phẩm thành công!");
+    }
+    catch(err){
+        req.flash("error", "Không tìm thấy sản phẩm!");
+        res.redirect(`${systemConfig.prefixAdmin}/products`);
+    }
+    res.redirect("back");
+};
