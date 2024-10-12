@@ -18,10 +18,10 @@ app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // pug configuration
-app.set("views", "./views"); // reading views folder
+app.set("views", `${__dirname}/views`); // reading views folder
 app.set("view engine", "pug");
 
-app.use(express.static("public")); // access 'public' folder
+app.use(express.static(`${__dirname}/public`)); // access 'public' folder
 
 // database
 database.connect()
