@@ -5,6 +5,8 @@ const session = require("express-session")
 var methodOverride = require('method-override')
 const systemConfig = require("./config/system")
 const multer = require('multer');
+const cloudinary = require("cloudinary").v2;
+const streamifier = require("streamifier");
 require("dotenv").config();
 const routeAdmin = require("./routes/admin/index.route")
 const route = require("./routes/client/index.route")
