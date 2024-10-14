@@ -27,10 +27,18 @@ module.exports.index = async (req, res) => {
         countProducts
     );
 
+    // Sort
+    let sort = {};
+
+    if (req.query.sortKey && req.query.sortValue) {
+        sort[req.query.sortKey] = req.query.sortValue;
+    } else {
+        sort.position = "desc";
+    }
+    // End Sort
+
     const products = await Product.find(find)
-        .sort({
-            position: "asc"
-        })
+        .sort(sort)
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skip);
 
@@ -133,7 +141,7 @@ module.exports.create = async (req, res) => {
 };
 
 module.exports.createPost = async (req, res) => {
-    
+
     req.body.price = parseInt(req.body.price);
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
@@ -150,7 +158,7 @@ module.exports.createPost = async (req, res) => {
 
 
 module.exports.edit = async (req, res) => {
-    try{
+    try {
         const find = {
             deleted: false,
             _id: req.params.id
@@ -161,8 +169,7 @@ module.exports.edit = async (req, res) => {
             pageTitle: "Chỉnh sửa sản phẩm",
             product: product
         });
-    }
-    catch(err){
+    } catch (err) {
         req.flash("error", "Không tìm thấy sản phẩm!");
         res.redirect(`${systemConfig.prefixAdmin}/products`);
     }
@@ -173,14 +180,12 @@ module.exports.editPatch = async (req, res) => {
     req.body.price = parseInt(req.body.price);
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
-    if(req.file){
-        req.body.thumbnail = '/uploads/' + req.file.filename;
-    }
-    try{
-        await Product.updateOne({_id: id}, req.body);
+    try {
+        await Product.updateOne({
+            _id: id
+        }, req.body);
         req.flash("success", "Cập nhật sản phẩm thành công!");
-    }
-    catch(err){
+    } catch (err) {
         req.flash("error", "Không tìm thấy sản phẩm!");
         res.redirect(`${systemConfig.prefixAdmin}/products`);
     }
@@ -188,7 +193,7 @@ module.exports.editPatch = async (req, res) => {
 };
 
 module.exports.detail = async (req, res) => {
-    try{
+    try {
         const find = {
             deleted: false,
             _id: req.params.id
@@ -199,8 +204,7 @@ module.exports.detail = async (req, res) => {
             pageTitle: product.title,
             product: product
         });
-    }
-    catch(err){
+    } catch (err) {
         req.flash("error", "Không tìm thấy sản phẩm!");
         res.redirect(`${systemConfig.prefixAdmin}/products`);
     }
