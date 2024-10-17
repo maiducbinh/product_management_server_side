@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
 
 block main
     h1(class="mb-4") Thêm mới danh mục sản phẩm
@@ -19,27 +20,26 @@ block main
                 name="title"
                 required
             )
+        //- div(class="form-group")
+        //-     label(for="parent_id") Danh mục cha
+        //-     input(
+        //-         type="text"
+        //-         class="form-control"
+        //-         id="parent_id"
+        //-         name="parent_id"
+        //-     )
+
         div(class="form-group")
             label(for="parent_id") Danh mục cha
-            input(
+            select(
                 type="text"
                 class="form-control"
                 id="parent_id"
                 name="parent_id"
             )
-
-        //-  div(class="form-group")
-        //-     label(for="parent_id") Danh mục cha
-        //-     select(
-        //-         type="text"
-        //-         class="form-control"
-        //-         id="parent_id"
-        //-         name="parent_id"
-        //-         required
-        //-     )
-                //- option(value="") -- Chọn danh mục --
-                //- each item in listCategory
-                //- option(value=item.id) #{item.title}
+                option(value="") -- Chọn danh mục --
+                    if(records)
+                        +select-tree(records)
         div(class="form-group")
             label(for="desc") Mô tả
             textarea(
