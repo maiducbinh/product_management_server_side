@@ -23,7 +23,7 @@ block main
         div(class="form-group")
             label(for="desc") Mô tả
             textarea(
-                class="form-control"
+                class="form-control textarea-mce"
                 id="desc"
                 name="description"
                 rows="5"
@@ -61,7 +61,7 @@ block main
         div(
             class="form-group"
             upload-image
-        )
+            )
             label(for="thumbnail") Ảnh
             input(
                 type="file"
@@ -74,7 +74,7 @@ block main
             img(
                 src=product.thumbnail
                 upload-image-preview
-                class="image-prev"
+                class="image-preview"
             )
         div(class="form-group")
             label(for="position") Vị trí
