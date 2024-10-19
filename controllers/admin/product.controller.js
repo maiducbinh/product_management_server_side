@@ -141,8 +141,8 @@ module.exports.create = async (req, res) => {
         deleted: false,
     };
     const category = await ProductCategory.find();
-    
-    const newCategory = createTreeHelper.tree(category);    
+
+    const newCategory = createTreeHelper.tree(category);
     res.render("admin/pages/products/create", {
         pageTitle: "Thêm mới sản phẩm",
         category: newCategory
@@ -171,18 +171,26 @@ module.exports.edit = async (req, res) => {
         const find = {
             deleted: false,
             _id: req.params.id
-        }
+        };
+
         const product = await Product.findOne(find);
-        console.log(product);
+
+        const category = await ProductCategory.find({
+            deleted: false
+        });
+
+        const newCategory = createTreeHelper.tree(category);
+
         res.render("admin/pages/products/edit", {
             pageTitle: "Chỉnh sửa sản phẩm",
-            product: product
+            product: product,
+            category: newCategory
         });
-    } catch (err) {
-        req.flash("error", "Không tìm thấy sản phẩm!");
+    } catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/products`);
     }
 };
+
 
 module.exports.editPatch = async (req, res) => {
     const id = req.params.id;
