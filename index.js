@@ -50,3 +50,6 @@ app.listen(port, () => {
 
 // App local variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin
+
+// Parse incoming JSON requests
+app.use(express.json());
