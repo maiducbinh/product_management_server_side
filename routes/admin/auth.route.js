@@ -5,6 +5,7 @@ const controller = require("../../controllers/admin/auth.controller");
 const validate = require("../../validates/admin/auth.validate");
 
 router.get("/login", controller.login);
+router.get("/logout", controller.logout);
 router.post(
     "/login",
     validate.loginPost, 
