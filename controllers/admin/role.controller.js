@@ -1,5 +1,6 @@
 const Role = require("../../models/role.model");
 const systemConfig = require("../../config/system")
+const { json } = require("body-parser");
 
 // [GET] /admin/roles
 module.exports.index = async (req, res) => {
@@ -78,17 +79,14 @@ module.exports.permissions = async (req, res) => {
         records: records
     });
 }
+
 module.exports.permissionsPatch = async (req, res) => {
-    for (const item of req.body) {
-        await Role.updateOne({
-            _id: item.id,
-            deleted: false
-        }, {
-            permissions: item.permissions
-        });
+    const permissions = JSON.parse(req.body.permissions)
+    for (const item of permissions) {
+        
+        await Role.updateOne({_id: item.id},{permissions: item.permissions})
     }
-    req.flash("success", "Cập nhật thành công!");
-    res.json({
-        code: "success"
-    });
+    req.flash("success","Cập nhật phân quyền thành công")
+    res.redirect("back")
+    
 }
