@@ -12,6 +12,7 @@ require("dotenv").config();
 const routeAdmin = require("./routes/admin/index.route")
 const route = require("./routes/client/index.route")
 const flash = require('express-flash');
+const moment = require('moment');
 const app = express();
 const database = require("./config/database")
 
@@ -50,6 +51,7 @@ app.listen(port, () => {
 
 // App local variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin
+app.locals.moment = moment
 
 // Parse incoming JSON requests
 app.use(express.json());
